@@ -1,9 +1,7 @@
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { projects } from "../data/projects";
-import {motion} from "framer-motion";
-import { fadeUp} from "../aimations/variants";   
-import { stagger } from "../aimations/variants";
-import { sectionVariant } from "../aimations/variants";
+import { motion } from "framer-motion";
+import { containerVariant, itemVariant } from "../aimations/variants";   
 import PageWrapper from "../components/PageWrapper";
 import { Helmet } from "react-helmet-async";      
 
@@ -15,29 +13,21 @@ export default function ProjectDetails() {
   );
 
   if (!project) {
-    return <p className="p-6">Project not found</p>;
-  }
-
-  return (                              
-    <PageWrapper>
-    <Helmet>
-      <title>{project.title} | Aiman's Projects</title>
-      <meta name="description" content={project.description} />   
-    </Helmet>
-    <motion.section
-    initial="hidden"
-    whileInView="visible"
-    viewport={{ once: true }}
-    variants={stagger}
-    transition={{ duration: 0.5 }}
-
-
-    className="max-w-4xl mx-auto px-6 py-12">
-      <h1 className="text-4xl font-extrabold mb-4">
-        {project.title}
-      </h1>
-
-      <p className="opacity-80 mb-8">
+    return (
+      <PageWrapper>
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            Project Not Found
+          </h1>
+          <p className="text-gray-600 dark:text-gray-400 mb-8">
+            The project you're looking for doesn't exist.
+          </p>
+          <Link to="/projects" className="btn-primary">
+            Back to Projects
+          </Link>
+        </div>
+  );
+}
         {project.description}
       </p>
 {/*Tech Stack Section*/}

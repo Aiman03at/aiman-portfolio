@@ -6,6 +6,16 @@ const pageVariants = {
   exit: { opacity: 0, y: -20 },
 };
 
+const containerVariants = {
+  initial: { opacity: 0 },
+  animate: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
 export default function PageWrapper({
   children,
 }: {
@@ -17,10 +27,16 @@ export default function PageWrapper({
       initial="initial"
       animate="animate"
       exit="exit"
-      transition={{ duration: 0.4, ease: "easeOut" }}
-      className="min-h-screen"
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      className="min-h-screen pt-4"
     >
-      {children}
+      <motion.div
+        variants={containerVariants}
+        initial="initial"
+        animate="animate"
+      >
+        {children}
+      </motion.div>
     </motion.main>
   );
 }
