@@ -3,7 +3,6 @@ import { lazy, Suspense } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Navbar from "./components/Navbar";
 
-const Home          = lazy(() => import("./pages/Home"));
 const Projects      = lazy(() => import("./pages/Projects"));
 const ProjectDetails= lazy(() => import("./pages/ProjectDetails"));
 const Blog          = lazy(() => import("./pages/Blog"));
@@ -73,7 +72,7 @@ function App() {
       <Suspense fallback={<PageLoader />}>
         <AnimatePresence mode="wait" initial={false}>
           <Routes location={location} key={location.pathname}>
-            <Route path="/"            element={<AnimatedPage><Home /></AnimatedPage>} />
+            <Route path="/"            element={<AnimatedPage><About /></AnimatedPage>} />
             <Route path="/about"       element={<AnimatedPage><About /></AnimatedPage>} />
             <Route path="/contact"     element={<AnimatedPage><Contact /></AnimatedPage>} />
             <Route path="/projects"    element={<AnimatedPage><Projects /></AnimatedPage>} />
