@@ -507,7 +507,23 @@ footer p {
   max-width: none;
 }
 
-/* ANIMATIONS */
+/* SCROLL ANIMATIONS */
+[data-animate] {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+[data-animate].visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+[data-animate][data-delay="1"] { transition-delay: 0.08s; }
+[data-animate][data-delay="2"] { transition-delay: 0.16s; }
+[data-animate][data-delay="3"] { transition-delay: 0.24s; }
+[data-animate][data-delay="4"] { transition-delay: 0.32s; }
+[data-animate][data-delay="5"] { transition-delay: 0.40s; }
+
+/* HERO ANIMATIONS (hero elements skip data-animate, use keyframes) */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -518,6 +534,129 @@ footer p {
 .hero-left > *:nth-child(3) { animation-delay: 0.3s; }
 .hero-left > *:nth-child(4) { animation-delay: 0.4s; }
 .hero-right { animation: fadeUp 0.7s 0.3s ease both; }
+
+/* PROJECT BODY — slide in when accordion opens */
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.project-body { animation: slideDown 0.25s ease; }
+
+/* SCREENSHOTS */
+.screenshots-section {
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+.screenshots-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.screenshots-strip {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-hover) transparent;
+}
+.screenshots-strip::-webkit-scrollbar { height: 4px; }
+.screenshots-strip::-webkit-scrollbar-track { background: transparent; }
+.screenshots-strip::-webkit-scrollbar-thumb { background: var(--border-hover); border-radius: 99px; }
+
+.screenshot-thumb {
+  position: relative;
+  flex-shrink: 0;
+  width: 220px;
+  height: 130px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  cursor: pointer;
+  background: var(--bg);
+  padding: 0;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.screenshot-thumb:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+.screenshot-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+.screenshot-thumb:hover img { transform: scale(1.04); }
+
+.screenshot-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(11,11,13,0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.screenshot-thumb:hover .screenshot-overlay { opacity: 1; }
+.screenshot-overlay span {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--accent-bright);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1px solid var(--accent);
+  padding: 5px 12px;
+  border-radius: 3px;
+}
+
+/* LIGHTBOX */
+@keyframes lbFadeIn  { from { opacity: 0; }              to { opacity: 1; } }
+@keyframes lbScaleIn { from { transform: scale(0.93); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0,0,0,0.88);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  animation: lbFadeIn 0.2s ease;
+  cursor: zoom-out;
+}
+.lightbox img {
+  max-width: 100%;
+  max-height: 88vh;
+  border-radius: 8px;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.6);
+  animation: lbScaleIn 0.22s ease;
+  cursor: default;
+}
+.lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 28px;
+  font-size: 32px;
+  line-height: 1;
+  color: var(--dim);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.15s, transform 0.15s;
+  padding: 4px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+}
+.lightbox-close:hover { color: var(--text); transform: scale(1.15); }
 
 /* RESPONSIVE */
 @media (max-width: 900px) {

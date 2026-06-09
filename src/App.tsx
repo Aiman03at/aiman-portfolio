@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 type Project = {
   number: string;
@@ -12,6 +12,7 @@ type Project = {
   links: { label: string; href: string }[];
   description: string;
   highlights: { title: string; body: string }[];
+  screenshots: string[];
 };
 
 const projects: Project[] = [
@@ -55,6 +56,12 @@ const projects: Project[] = [
         body: "React + TypeScript frontend, Vercel serverless backend, Claude API — deployed and live.",
       },
     ],
+    screenshots: [
+      "/Screeenshots/safehire/Screenshot 1.png",
+      "/Screeenshots/safehire/Screenshot 2.png",
+      "/Screeenshots/safehire/Screenshot 3.png",
+      "/Screeenshots/safehire/Screenshot 4.png",
+    ],
   },
   {
     number: "02 — ADVANCED",
@@ -95,6 +102,7 @@ const projects: Project[] = [
         body: "Feature branches → dev → master. Protected master branch. Conventional commit messages. Makefile shortcuts for common operations.",
       },
     ],
+    screenshots: [],
   },
   {
     number: "03 — FULL-STACK",
@@ -137,6 +145,7 @@ const projects: Project[] = [
         body: "bcryptjs password hashing, CORS origin restriction, server-side input validation, comprehensive error middleware with typed error responses.",
       },
     ],
+    screenshots: [],
   },
   {
     number: "04 — COMPONENT LIBRARY",
@@ -165,6 +174,7 @@ const projects: Project[] = [
         body: "Noticed I was rebuilding the same 6 components across every project. The library enforces consistency and speeds up project starts.",
       },
     ],
+    screenshots: [],
   },
 ];
 
@@ -197,6 +207,31 @@ const aboutFacts = [
 
 function App() {
   const [openProject, setOpenProject] = useState(0);
+  const [lightbox, setLightbox] = useState<string | null>(null);
+
+  useEffect(() => {
+    const els = document.querySelectorAll<Element>("[data-animate]");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.08, rootMargin: "0px 0px -40px 0px" }
+    );
+    els.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!lightbox) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setLightbox(null); };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [lightbox]);
 
   return (
     <div className="portfolio-shell">
@@ -210,7 +245,7 @@ function App() {
         </ul>
       </nav>
 
-      <section className="hero" id="top">
+      <section className="hero" id="top" style={{ borderTop: "none" }}>
         <div className="hero-left">
           <div className="hero-eyebrow">Software Developer · Ottawa, Canada</div>
           <h1 className="hero-title">Building things<br />that <em>actually</em><br />work.</h1>
@@ -255,7 +290,7 @@ function App() {
       </section>
 
       <section id="projects">
-        <div className="section-header">
+        <div className="section-header" data-animate>
           <span className="section-num">01</span>
           <h2 className="section-title">Projects</h2>
           <div className="section-line" />
@@ -264,17 +299,27 @@ function App() {
         <div className="projects-grid">
           {projects.map((project, index) => {
             const isOpen = openProject === index;
-
             return (
-              <article className={`project-card${isOpen ? " open" : ""}`} key={project.name}>
-                <button type="button" className="project-header" onClick={() => setOpenProject(isOpen ? -1 : index)}>
+              <article
+                data-animate
+                data-delay={String(index + 1)}
+                className={`project-card${isOpen ? " open" : ""}`}
+                key={project.name}
+              >
+                <button
+                  type="button"
+                  className="project-header"
+                  onClick={() => setOpenProject(isOpen ? -1 : index)}
+                >
                   <div>
                     <div className="project-num">{project.number}</div>
                     <div className="project-name">{project.name}</div>
                     <div className="project-tagline">{project.tagline}</div>
                     <div className="project-tags">
                       {project.tags.map((tag) => (
-                        <span key={`${project.name}-${tag.label}`} className={`tag tag-${tag.tone}`}>{tag.label}</span>
+                        <span key={`${project.name}-${tag.label}`} className={`tag tag-${tag.tone}`}>
+                          {tag.label}
+                        </span>
                       ))}
                     </div>
                   </div>
@@ -282,13 +327,24 @@ function App() {
                   <div className="project-right">
                     <span
                       className="project-badge"
-                      style={{ color: project.badgeColor, border: `1px solid ${project.badgeBorder}`, background: project.badgeBackground }}
+                      style={{
+                        color: project.badgeColor,
+                        border: `1px solid ${project.badgeBorder}`,
+                        background: project.badgeBackground,
+                      }}
                     >
                       {project.badge}
                     </span>
                     <div className="project-links">
                       {project.links.map((link) => (
-                        <a key={`${project.name}-${link.label}`} className="project-link" href={link.href} target="_blank" rel="noreferrer" onClick={(event) => event.stopPropagation()}>
+                        <a
+                          key={`${project.name}-${link.label}`}
+                          className="project-link"
+                          href={link.href}
+                          target="_blank"
+                          rel="noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                        >
                           {link.label}
                         </a>
                       ))}
@@ -297,19 +353,44 @@ function App() {
                   </div>
                 </button>
 
-                {isOpen ? (
+                {isOpen && (
                   <div className="project-body">
                     <p className="project-desc">{project.description}</p>
                     <div className="highlights">
-                      {project.highlights.map((highlight) => (
-                        <div key={`${project.name}-${highlight.title}`} className="highlight">
-                          <strong>{highlight.title}</strong>
-                          {highlight.body}
+                      {project.highlights.map((h) => (
+                        <div key={`${project.name}-${h.title}`} className="highlight">
+                          <strong>{h.title}</strong>
+                          {h.body}
                         </div>
                       ))}
                     </div>
+
+                    {project.screenshots.length > 0 && (
+                      <div className="screenshots-section">
+                        <div className="screenshots-label">SCREENSHOTS</div>
+                        <div className="screenshots-strip">
+                          {project.screenshots.map((src, i) => (
+                            <button
+                              key={i}
+                              type="button"
+                              className="screenshot-thumb"
+                              onClick={(e) => { e.stopPropagation(); setLightbox(src); }}
+                            >
+                              <img
+                                src={src}
+                                alt={`${project.name} screenshot ${i + 1}`}
+                                loading="lazy"
+                              />
+                              <div className="screenshot-overlay">
+                                <span>View</span>
+                              </div>
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
-                ) : null}
+                )}
               </article>
             );
           })}
@@ -317,15 +398,20 @@ function App() {
       </section>
 
       <section id="skills">
-        <div className="section-header">
+        <div className="section-header" data-animate>
           <span className="section-num">02</span>
           <h2 className="section-title">Skills</h2>
           <div className="section-line" />
         </div>
 
         <div className="skills-grid">
-          {skills.map((group) => (
-            <div className="skill-group" key={group.title}>
+          {skills.map((group, i) => (
+            <div
+              data-animate
+              data-delay={String(i + 1)}
+              className="skill-group"
+              key={group.title}
+            >
               <div className="skill-group-title">{group.title}</div>
               <div className="skill-list">
                 {group.items.map((skill) => (
@@ -338,14 +424,14 @@ function App() {
       </section>
 
       <section id="about">
-        <div className="section-header">
+        <div className="section-header" data-animate>
           <span className="section-num">03</span>
           <h2 className="section-title">About</h2>
           <div className="section-line" />
         </div>
 
         <div className="about-grid">
-          <div className="about-text">
+          <div className="about-text" data-animate>
             <p>
               I'm a <strong>software developer based in Ottawa</strong> with a background in technical writing and content for developers. That combination gives me something unusual: I can build the thing <em>and</em> explain how it works clearly — which matters more than people think.
             </p>
@@ -361,8 +447,13 @@ function App() {
           </div>
 
           <div className="about-facts">
-            {aboutFacts.map((fact) => (
-              <div className="fact" key={fact.label}>
+            {aboutFacts.map((fact, i) => (
+              <div
+                data-animate
+                data-delay={String(i + 1)}
+                className="fact"
+                key={fact.label}
+              >
                 <div className="fact-icon">{fact.icon}</div>
                 <div>
                   <div className="fact-label">{fact.label}</div>
@@ -375,32 +466,51 @@ function App() {
       </section>
 
       <section id="contact">
-        <div className="section-header">
+        <div className="section-header" data-animate>
           <span className="section-num">04</span>
           <h2 className="section-title">Contact</h2>
           <div className="section-line" />
         </div>
 
         <div className="contact-inner">
-          <p className="contact-text">
+          <p className="contact-text" data-animate>
             I'm actively looking for software developer roles in Ottawa and open to remote opportunities. If you're working on something interesting or want to talk about one of my projects, I'd love to hear from you.
           </p>
 
           <div className="contact-links">
-            <a className="contact-link" href="https://github.com/Aiman03at" target="_blank" rel="noreferrer">
+            <a
+              data-animate
+              data-delay="1"
+              className="contact-link"
+              href="https://github.com/Aiman03at"
+              target="_blank"
+              rel="noreferrer"
+            >
               <span className="contact-link-icon">⌥</span>
               <span className="contact-link-label">GitHub</span>
-              <span>github.com/Aiman03at</span>
+             
             </a>
-            <a className="contact-link" href="mailto:your-email@example.com">
+            <a
+              data-animate
+              data-delay="2"
+              className="contact-link"
+              href="mailto:aimanmushtaq5028@gmail.com"
+            >
               <span className="contact-link-icon">✉</span>
               <span className="contact-link-label">Email</span>
-              <span>Add your email here</span>
+              
             </a>
-            <a className="contact-link" href="https://linkedin.com/in/your-profile" target="_blank" rel="noreferrer">
+            <a
+              data-animate
+              data-delay="3"
+              className="contact-link"
+              href="https://www.linkedin.com/in/aimanmushtaq89/"
+              target="_blank"
+              rel="noreferrer"
+            >
               <span className="contact-link-icon">in</span>
               <span className="contact-link-label">LinkedIn</span>
-              <span>Add your LinkedIn URL</span>
+              <span>Aiman Mushtaq</span>
             </a>
           </div>
         </div>
@@ -410,6 +520,23 @@ function App() {
         <p>© 2026 Aiman · Built with React + TypeScript</p>
         <p>Ottawa, Canada · Open to opportunities</p>
       </footer>
+
+      {lightbox && (
+        <div className="lightbox" onClick={() => setLightbox(null)}>
+          <button
+            type="button"
+            className="lightbox-close"
+            onClick={() => setLightbox(null)}
+          >
+            ×
+          </button>
+          <img
+            src={lightbox}
+            alt="Screenshot"
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
     </div>
   );
 }
