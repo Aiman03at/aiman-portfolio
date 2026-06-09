@@ -21,8 +21,16 @@ const safehire: Project = {
     { label: 'Live ↗', href: 'https://safe-hire-delta.vercel.app' },
     { label: 'GitHub ↗', href: 'https://github.com/Aiman03at/safe-hire' },
   ],
-  description:
-    "I built SafeHire because I experienced job scam fatigue firsthand — vague postings, wasted applications, companies with no real presence. SafeHire is a three-mode AI tool that solves this. Mode A analyzes any job posting across 8 risk signals (salary transparency, payment requests, company verifiability, contact methods) and returns a 0–100 legitimacy score in about 3 seconds. Mode B finds real remote jobs matching your skills by searching Greenhouse, Lever, and LinkedIn live — no stale databases. Mode C is a recruiter audit tool: paste a job posting before it goes live, get an 8-dimension quality audit, then hit AI Rewrite and Claude rewrites the entire thing.",
+  overview: {
+    problem:
+      "Job seekers are bombarded with scam postings — vague descriptions, fake companies, payment-request traps — making it hard to know which opportunities are legitimate. Every wasted application costs time, and falling for a scam can cost real money.",
+    solution:
+      "SafeHire is a three-mode AI tool built on the Claude API. Mode A analyzes any job posting across 8 risk signals (salary transparency, payment requests, company verifiability, contact methods) and returns a 0–100 legitimacy score in about 3 seconds. Mode B finds real remote jobs matching your skills by searching Greenhouse, Lever, and LinkedIn live — no stale databases. Mode C is a recruiter audit: paste a draft posting, get an 8-dimension quality review, then hit AI Rewrite and Claude rewrites the entire thing.",
+    impact:
+      "Placed 2nd at the Scale Without Borders AI Hackathon 2026 among 100+ builders. The tool is live and publicly accessible — real users can paste any job posting and get an instant scam score with actionable red flag breakdowns.",
+    futureEnhancements:
+      "Company verification via public APIs (LinkedIn, Companies House), a browser extension to analyze postings in-place without copy-pasting, email digest of curated remote jobs, and user accounts for saving and tracking applications.",
+  },
   highlights: [
     {
       title: 'PROMPT ENGINEERING',

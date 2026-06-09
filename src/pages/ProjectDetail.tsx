@@ -61,7 +61,21 @@ export default function ProjectDetail() {
         {/* ── OVERVIEW ── */}
         <section className="detail-section section-alt">
           <div className="detail-section-label">Overview</div>
-          <p className="detail-desc">{project.description}</p>
+          <div className="overview-grid">
+            {(
+              [
+                { key: 'Problem', value: project.overview.problem },
+                { key: 'Solution', value: project.overview.solution },
+                { key: 'Impact', value: project.overview.impact },
+                { key: 'Future Enhancements', value: project.overview.futureEnhancements },
+              ] as const
+            ).map(({ key, value }) => (
+              <div key={key} className="overview-item">
+                <div className="overview-heading">{key}</div>
+                <p className="overview-body">{value}</p>
+              </div>
+            ))}
+          </div>
         </section>
 
         {/* ── HIGHLIGHTS ── */}

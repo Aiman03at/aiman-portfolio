@@ -9,7 +9,12 @@ export type Project = {
   tagline: string;
   tags: { label: string; tone: string }[];
   links: { label: string; href: string }[];
-  description: string;
+  overview: {
+    problem: string;
+    solution: string;
+    impact: string;
+    futureEnhancements: string;
+  };
   highlights: { title: string; body: string }[];
   screenshots: string[];
 };

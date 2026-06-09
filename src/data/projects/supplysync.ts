@@ -9,7 +9,7 @@ const supplysync: Project = {
   badgeBackground: 'rgba(167,139,250,0.08)',
   name: 'SupplySync',
   tagline:
-    'Real-time supply chain management platform with WebSocket inventory tracking, AI-driven demand forecasting, and a full CI/CD pipeline. Inspired by Kinaxis RapidResponse.',
+    'Real-time supply chain management platform with WebSocket inventory tracking, AI-driven demand forecasting, and a full CI/CD pipeline.',
   tags: [
     { label: 'React', tone: 'blue' },
     { label: 'Node.js', tone: 'green' },
@@ -20,8 +20,16 @@ const supplysync: Project = {
     { label: 'GitHub Actions', tone: 'amber' },
   ],
   links: [{ label: 'GitHub ↗', href: 'https://github.com/Aiman03at/SupplySync' }],
-  description:
-    'SupplySync is a microservices platform with four independently deployed services: a React dashboard, a Node/Express REST API with Socket.io for real-time inventory events, a PostgreSQL database, and a Python FastAPI service handling demand forecasting and anomaly detection. All four services run locally with a single docker compose up command. In production, the backend and ML service deploy to Railway, the frontend to Vercel — all triggered automatically on merge to master.',
+  overview: {
+    problem:
+      "Supply chain teams lack real-time visibility into inventory levels and rely on manual, batch-process updates — meaning stockouts and overstock situations aren't caught until the damage is done. Fragmented tooling across spreadsheets and disconnected systems makes the problem worse.",
+    solution:
+      "A microservices platform with four independently deployed services: a React dashboard, a Node/Express REST API with Socket.io for real-time inventory events, a PostgreSQL database, and a Python FastAPI ML service for demand forecasting and anomaly detection. All four services run locally with a single docker compose up. In production, backend and ML service deploy to Railway, frontend to Vercel — all triggered automatically on merge to master.",
+    impact:
+      "Full CI/CD pipeline — GitHub Actions runs Node, React, and Python ML unit tests on every PR. On merge to master, Docker builds, pushes to Docker Hub, and deploys to Railway and Vercel automatically. Demonstrates production-grade microservices architecture with real-time event broadcasting and ML-backed forecasting.",
+    futureEnhancements:
+      "Multi-warehouse support with location-aware inventory tracking, a supplier portal for purchase order management, SMS and email alerting on anomaly detection triggers, and integration with real freight and logistics APIs.",
+  },
   highlights: [
     {
       title: 'REAL-TIME WEBSOCKETS',

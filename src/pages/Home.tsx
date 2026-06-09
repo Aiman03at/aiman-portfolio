@@ -60,7 +60,7 @@ const aboutFacts = [
   { icon: '📍', label: 'Location', value: 'Ottawa, Ontario, Canada' },
   { icon: '🎯', label: 'Looking for', value: 'Software Developer roles · Ottawa, remote, or Gov. of Canada CS-01/02' },
   { icon: '🏆', label: 'Recent achievement', value: '2nd place — Scaled Without Borders AI Hackathon, May 2026' },
-  { icon: '✍️', label: 'Also writes', value: 'Technical articles on Dev.to and Hashnode' },
+  { icon: '✍️', label: 'Also writes', value: 'Technical articles on Hashnode' },
   { icon: '🌐', label: 'Languages', value: 'English · Arabic' },
   { icon: '🇨🇦', label: 'Status', value: 'Canadian Permanent Resident · No restrictions' },
 ];
@@ -90,10 +90,10 @@ export default function Home() {
       {/* ── HERO ── */}
       <section className="hero" id="top">
         <div className="hero-left">
-          <div className="hero-eyebrow">Full-Stack Developer · AI Integration · Ottawa, Canada</div>
-          <h1 className="hero-title">Building things<br />that <em>actually</em><br />work.</h1>
+          <div className="hero-eyebrow">Full Stack Developer · AI Integration · Ottawa, Canada</div>
+          <h1 className="hero-title">Production-grade apps.<br />AI that <em>actually</em><br />works.</h1>
           <p className="hero-subtitle">
-            I'm Aiman — a full-stack developer with 3+ years of production experience and an AI specialization. I build real applications: AI tools, management systems, real-time platforms, and everything in between.
+            I'm Aiman, a full-stack developer with 3+ years of production experience and an AI specialization. I build real applications: AI tools, management systems, real-time platforms, and everything in between.
           </p>
           <div className="hero-ctas">
             <a href="#projects" className="btn-primary">View Projects</a>
@@ -296,7 +296,7 @@ export default function Home() {
               I care about writing code that's organized, readable, and maintainable — proper layered architecture, meaningful commits, and thinking about the next developer who touches the codebase.
             </p>
             <p>
-              I also write technical content on <strong>Dev.to and Hashnode</strong> — developer-facing articles on topics like REST vs WebSockets. Writing forces clarity of thought, which makes me a better engineer.
+              I also write technical content on <strong><a href="https://aimanbuilds.hashnode.dev/" target="_blank" rel="noreferrer" className="about-link">Hashnode</a></strong> — developer-facing articles on topics like REST vs WebSockets. Writing forces clarity of thought, which makes me a better engineer.
             </p>
           </div>
           <div className="about-facts">
@@ -338,7 +338,12 @@ export default function Home() {
             <a data-animate data-delay="3" className="contact-link" href="https://github.com/Aiman03at" target="_blank" rel="noreferrer">
               <span className="contact-link-icon">⌥</span>
               <span className="contact-link-label">GitHub</span>
-              
+
+            </a>
+            <a data-animate data-delay="4" className="contact-link" href="https://aimanbuilds.hashnode.dev/" target="_blank" rel="noreferrer">
+              <span className="contact-link-icon">✍</span>
+              <span className="contact-link-label">Hashnode</span>
+
             </a>
           </div>
         </div>

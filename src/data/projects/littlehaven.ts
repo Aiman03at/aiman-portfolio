@@ -22,8 +22,16 @@ const littlehaven: Project = {
     { label: 'Live ↗', href: 'https://daycare-management-hn3m.vercel.app' },
     { label: 'GitHub ↗', href: 'https://github.com/Aiman03at/Daycare_Management' },
   ],
-  description:
-    'Little Haven is a production-grade management system for daycare centers, built full-stack from scratch. The backend is a layered Express/TypeScript API — routes handle HTTP, middleware enforces auth and permissions, service files contain business logic. Three user roles (Admin, Educator, Parent) are enforced at the middleware layer using JWT tokens and bcrypt password hashing. The React frontend uses React Router v7 with protected routes and Axios for API calls.',
+  overview: {
+    problem:
+      "Daycare centers track attendance, meals, health records, daily activities, and communications across multiple staff and parent roles — but most rely on paper forms or disconnected apps, leading to missed updates, data errors, and poor parent visibility into their child's day.",
+    solution:
+      "A full-stack management system with a layered Express/TypeScript API and three RBAC roles enforced at the middleware layer using JWT. Admin manages staff and enrollment; Educators log daily records, meals, and activities; Parents have read-only access to their child's data. React 19 frontend with protected routes, photo uploads via multer, and 10+ relational PostgreSQL tables covering the full operational lifecycle.",
+    impact:
+      "Live at daycare-management-hn3m.vercel.app. Covers enrollment, daily records, meals with photo uploads, health logs, and real-time attendance — all in one authenticated, role-gated system. Demonstrates production-grade RBAC, file handling, and full-stack TypeScript discipline.",
+    futureEnhancements:
+      "Real-time parent notifications via WebSocket when daily records are updated, a mobile-optimized PWA for on-the-go educator use, direct messaging between educators and parents, and a billing and invoice module for monthly fees.",
+  },
   highlights: [
     {
       title: 'ROLE-BASED AUTH',

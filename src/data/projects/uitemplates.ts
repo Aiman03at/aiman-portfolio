@@ -16,8 +16,16 @@ const uitemplates: Project = {
     { label: 'Component Design', tone: 'green' },
   ],
   links: [{ label: 'GitHub ↗', href: 'https://github.com/Aiman03at/UI_Templates' }],
-  description:
-    "A personal library of composable React components — the kind of foundation you build before starting a larger project so you're not reinventing buttons and modals every time. Built with compound component patterns for flexibility: instead of a monolithic Card with 15 props, it's Card + CardHeader + CardBody + CardFooter, letting the caller decide the structure.",
+  overview: {
+    problem:
+      "Starting a new React project means rebuilding the same 6–8 foundational components from scratch every time — buttons, modals, cards, form inputs — wasting hours before any real product work begins. Inconsistent implementations across projects also create a maintenance burden.",
+    solution:
+      "A personal component library using the compound component pattern. Instead of monolithic components with prop explosions, each piece is split into composable parts (Card + CardHeader + CardBody + CardFooter), letting the caller control structure. Built to be dropped directly into any new project with zero configuration.",
+    impact:
+      "Cuts project setup time significantly by providing battle-tested, consistent UI primitives. Enforces visual consistency across projects and eliminates the cognitive overhead of rebuilding foundational elements for each new codebase.",
+    futureEnhancements:
+      "Storybook documentation for interactive component previews, a full accessibility audit with ARIA compliance, dark and light theme tokens baked into each component, and publishing to npm as an installable package.",
+  },
   highlights: [
     {
       title: 'COMPOUND PATTERN',
