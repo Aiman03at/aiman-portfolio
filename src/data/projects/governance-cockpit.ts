@@ -19,6 +19,7 @@ const governanceCockpit: Project = {
     { label: 'Prisma', tone: 'amber' },
   ],
   links: [
+    { label: 'Live ↗', href: 'https://governance-cockpit.vercel.app/' },
     { label: 'GitHub ↗', href: 'https://github.com/Aiman03at/governance-cockpit' },
   ],
   overview: {

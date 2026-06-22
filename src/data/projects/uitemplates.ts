@@ -15,7 +15,10 @@ const uitemplates: Project = {
     { label: 'CSS', tone: 'amber' },
     { label: 'Component Design', tone: 'green' },
   ],
-  links: [{ label: 'GitHub ↗', href: 'https://github.com/Aiman03at/UI_Templates' }],
+  links: [
+    { label: 'Live ↗', href: 'https://ui-templates-jet.vercel.app/' },
+    { label: 'GitHub ↗', href: 'https://github.com/Aiman03at/UI_Templates' },
+  ],
   overview: {
     problem:
       "Starting a new React project means rebuilding the same 6–8 foundational components from scratch every time — buttons, modals, cards, form inputs — wasting hours before any real product work begins. Inconsistent implementations across projects also create a maintenance burden.",
